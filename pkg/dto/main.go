@@ -35,6 +35,7 @@ type KeyDto struct {
 }
 
 type SshConfigDto struct {
+	ID            uuid.UUID           `json:"id,omitempty"`
 	Host          string              `json:"host"`
 	Values        map[string][]string `json:"values"`
 	IdentityFiles []string            `json:"identity_files"`
