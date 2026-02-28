@@ -7,7 +7,7 @@ import (
 )
 
 type Dto interface {
-	DataDto | UserDto | UserMachineDto | ChallengeResponseDto | ChallengeSuccessEncryptedKeyDto | MessageDto | EncryptedMasterKeyDto | MasterKeyDto | PublicKeyDto
+	DataDto | UserDto | UserMachineDto | ChallengeResponseDto | ChallengeSuccessEncryptedKeyDto | MessageDto | EncryptedMasterKeyDto | MasterKeyDto | PublicKeyDto | PerMachineMasterKeyDto | MasterKeyRotationRequestDto | MachinePublicKeyDto | MachinesPublicKeysDto
 }
 
 type DataDto struct {
@@ -78,6 +78,26 @@ type MasterKeyDto struct {
 type PublicKeyDto struct {
 	PublicKey        []byte `json:"public_key"`
 	EncapsulationKey []byte `json:"encapsulation_key,omitempty"`
+}
+
+type PerMachineMasterKeyDto struct {
+	MachineID          uuid.UUID `json:"machine_id"`
+	EncryptedMasterKey []byte    `json:"encrypted_master_key"`
+}
+
+type MasterKeyRotationRequestDto struct {
+	Keys []PerMachineMasterKeyDto `json:"keys"`
+}
+
+type MachinePublicKeyDto struct {
+	MachineID        uuid.UUID `json:"machine_id"`
+	Name             string    `json:"name"`
+	PublicKey        []byte    `json:"public_key"`
+	EncapsulationKey []byte    `json:"encapsulation_key,omitempty"`
+}
+
+type MachinesPublicKeysDto struct {
+	Machines []MachinePublicKeyDto `json:"machines"`
 }
 
 type ServerMessageDto[T Dto] struct {
