@@ -11,11 +11,19 @@ type Dto interface {
 }
 
 type DataDto struct {
-	ID        uuid.UUID      `json:"id"`
-	Username  string         `json:"username"`
-	Keys      []KeyDto       `json:"keys"`
-	SshConfig []SshConfigDto `json:"ssh_config"`
-	Machines  []MachineDto   `json:"machines"`
+	ID         uuid.UUID      `json:"id"`
+	Username   string         `json:"username"`
+	Keys       []KeyDto       `json:"keys"`
+	SshConfig  []SshConfigDto `json:"ssh_config"`
+	Machines   []MachineDto   `json:"machines"`
+	KnownHosts []KnownHostDto `json:"known_hosts"`
+}
+
+type KnownHostDto struct {
+	HostPattern string `json:"host_pattern"`
+	KeyType     string `json:"key_type"`
+	KeyData     string `json:"key_data"`
+	Marker      string `json:"marker"`
 }
 
 type KeyDto struct {
